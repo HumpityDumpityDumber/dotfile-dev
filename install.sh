@@ -108,41 +108,106 @@ EOL
 }
 
 # Packages to install
-PACKAGES=(
-    micro wl-clipboard os-prober kitty hyprland qt5-graphicaleffects
-    qt5-quickcontrols2 qt5-svg noto-fonts noto-fonts-cjk fastfetch plymouth
-    ttf-firacode-nerd zsh qt5-wayland qt6-wayland pipewire wireplumber
-    xdg-desktop-portal-hyprland pacman-contrib btop nwg-look qt5ct qt6ct
-    papirus-icon-theme kvantum sddm brightnessctl pamixer playerctl
-    xdg-user-dirs sound-theme-freedesktop yad jq vlc gwenview tumbler
-    ffmpegthumbnailer polkit-gnome grim socat wireplumber
-    networkmanager pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse
-    gst-plugin-pipewire slurp noto-fonts-emoji firewalld
-    waybar xdg-desktop-portal-gtk bluez bluez-utils blueman
-    network-manager-applet pavucontrol ttf-meslo-nerd gnome-keyring kooha
-    kvantum-qt5 gnome-disk-utility hyprlock hypridle
-    python-pipx pcmanfm-qt ark cpio meson cmake hyprwayland-scanner man
-    libreoffice-fresh evince gnome-clocks 7zip unrar file-roller swww imagemagick
-    gstreamer gst-plugins-bad gst-plugins-base gst-plugins-good
-    gst-plugins-ugly pkgconf vim fzf reflector zoxide wget
-    zenity baobab gnome-font-viewer unzip ttf-ubuntu-font-family
-    python-pillow python-scikit-learn python-numpy curl
-    qt6-5compat qt6-declarative qt6-svg openrgb bc wlr-randr
-    adw-gtk-theme libadwaita wl-clip-persist zip
-    nwg-displays gdb
-    qt6-virtualkeyboard qt6-multimedia-ffmpeg
+# System Utilities
+SYSTEM_UTILS=(
+    micro os-prober btop pacman-contrib reflector zenity wget zoxide man gdb
 )
 
-# AUR packages to install
-YAY_PACKAGES=(
-    bibata-cursor-theme visual-studio-code-bin 
-    floorp-bin gapless hardcode-fixer-git 
-    github-desktop auto-cpufreq
-    hyprpicker grimblast-git aurutils arch-update 
-    python-pywal16 smile clipse swayosd-git waypaper
-    ttf-meslo-nerd-font-powerlevel10k python-haishoku dopamine-appimage-preview
-    python-screeninfo python-imageio
-    python-materialyoucolor xwaylandvideobridge pinta
+AUR_SYSTEM_UTILS=(
+    auto-cpufreq aurutils arch-update
+)
+
+# Display, Desktop & Compositors
+DESKTOP_ENVIRONMENT=(
+    hyprland hyprlock hypridle hyprwayland-scanner kitty swww plymouth 
+    wl-clipboard wl-clip-persist grim slurp wlr-randr
+)
+
+AUR_DESKTOP_ENVIRONMENT=(
+    hyprpicker grimblast-git xwaylandvideobridge
+)
+
+# Qt & KDE Support
+QT_KDE_SUPPORT=(
+    qt5-graphicaleffects qt5-quickcontrols2 qt5-svg qt5-wayland 
+    qt6-wayland qt6-5compat qt6-declarative qt6-svg qt6-virtualkeyboard 
+    qt6-multimedia-ffmpeg qt5ct qt6ct kvantum kvantum-qt5
+)
+
+# Themes, Fonts & Appearance
+THEMES_FONTS=(
+    noto-fonts noto-fonts-cjk noto-fonts-emoji papirus-icon-theme 
+    ttf-firacode-nerd ttf-meslo-nerd ttf-ubuntu-font-family 
+    gnome-font-viewer adw-gtk-theme libadwaita
+)
+
+AUR_THEMES_FONTS=(
+    bibata-cursor-theme ttf-meslo-nerd-font-powerlevel10k
+)
+
+# Audio & Multimedia
+AUDIO_MULTIMEDIA=(
+    pipewire wireplumber pipewire-alsa pipewire-audio pipewire-jack 
+    pipewire-pulse gst-plugin-pipewire gst-plugins-base gst-plugins-good 
+    gst-plugins-bad gst-plugins-ugly pavucontrol pamixer playerctl 
+    ffmpegthumbnailer vlc gstreamer kooha
+)
+
+# Networking
+NETWORKING=(
+    networkmanager network-manager-applet socat firewalld bluez 
+    bluez-utils blueman
+)
+
+# File & Disk Utilities
+FILE_DISK_UTILS=(
+    pcmanfm ark cpio file-roller unzip zip 7zip unrar gnome-disk-utility baobab
+)
+
+# Auth & Portal
+AUTH_PORTAL=(
+    xdg-desktop-portal-hyprland xdg-desktop-portal-gtk polkit-gnome gnome-keyring
+)
+
+# Image & Graphics
+IMAGE_GRAPHICS=(
+    imagemagick tumbler gwenview
+)
+
+AUR_IMAGE_GRAPHICS=(
+    pinta dopamine-appimage-preview
+)
+
+# Development Tools
+DEV_TOOLS=(
+    meson cmake pkgconf python-pipx python-pillow python-numpy python-scikit-learn
+)
+
+AUR_DEV_TOOLS=(
+    visual-studio-code-bin github-desktop
+)
+
+# Office & Docs
+OFFICE_DOCS=(
+    libreoffice-fresh evince
+)
+
+# Misc GUI Apps
+GUI_APPS=(
+    nwg-look nwg-displays gnome-clocks yad
+)
+
+AUR_GUI_APPS=(
+    floorp-bin gapless waypaper
+)
+
+# Misc Tools
+MISC_TOOLS=(
+    brightnessctl xdg-user-dirs fastfetch jq curl bc cava
+)
+
+AUR_MISC_TOOLS=(
+    hardcode-fixer-git
 )
 
 # Gaming packages to install
@@ -187,10 +252,46 @@ sudo sed -i 's/COMPRESSZST=(zstd -c -T0 --ultra -20 -)/COMPRESSZST=(zstd -c -T0 
 # Enable TRIM for SSDs
 sudo systemctl enable fstrim.timer
 
-# Install additional packages
+# install packages
 echo "Installing required packages..."
-sudo pacman -S --needed "${PACKAGES[@]}"
-yay -S --needed "${YAY_PACKAGES[@]}"
+
+# All pacman package groups
+ALL_PACMAN_GROUPS=(
+    SYSTEM_UTILS
+    DESKTOP_ENVIRONMENT
+    QT_KDE_SUPPORT
+    THEMES_FONTS
+    AUDIO_MULTIMEDIA
+    NETWORKING
+    FILE_DISK_UTILS
+    AUTH_PORTAL
+    IMAGE_GRAPHICS
+    DEV_TOOLS
+    OFFICE_DOCS
+    GUI_APPS
+    MISC_TOOLS
+)
+
+# All AUR package groups
+ALL_AUR_GROUPS=(
+    AUR_SYSTEM_UTILS
+    AUR_DESKTOP_ENVIRONMENT
+    AUR_THEMES_FONTS
+    AUR_IMAGE_GRAPHICS
+    AUR_DEV_TOOLS
+    AUR_GUI_APPS
+    AUR_MISC_TOOLS
+)
+
+# Install pacman packages
+for group in "${ALL_PACMAN_GROUPS[@]}"; do
+    sudo pacman -S --needed "${!group[@]}"
+done
+
+# Install AUR packages
+for group in "${ALL_AUR_GROUPS[@]}"; do
+    yay -S --needed "${!group[@]}"
+done
 
 # Configure SDDM
 echo "Configuring SDDM..."
@@ -307,7 +408,7 @@ if ask_yes_no "Are you using a laptop?"; then
     mkdir -p ~/.config/systemd/user/batsignal.service.d
     printf '[Service]\nExecStart=\nExecStart=batsignal -d 5 -c 15 -w 30 -p' > ~/.config/systemd/user/batsignal.service.d/options.conf
 else
-    echo "Laptop installation skipped installation skipped."
+    echo "Laptop installation skipped."
 fi
 
 # Ask about AMD installation
@@ -333,9 +434,12 @@ if ask_yes_no "Would you like to download additional gaming packages?"; then
     # install and configure millenium
     if ask_yes_no "Would you like to patch Steam with Millenium?"; then
         echo "Patching Steam with Millenium..."
-        # add stuff here
+        sudo millenium patch
+        sudo chown "$USER:$USER" ~/.local/share/millennium
+        chmod -R u+rwX ~/.local/share/millennium
         echo "Installing SpaceTheme for Steam..."
-        # add more stuff here
+        mkdir -p ~/.steam/steam/steamui/skins/Steam
+        cp -r ./millenium-space-theme/* ~/.steam/steam/steamui/skins/Steam
     else
         echo "Skipping Millenium."
     fi
@@ -344,7 +448,36 @@ else
 fi
 
 if ask_yes_no "Would you like to download plover?"; then
-    # add stuff here
+    echo "Downloading Plover AppImage..."
+    mkdir -p ~/Applications
+    wget -O ~/Applications/plover.AppImage https://github.com/openstenoproject/plover/releases/latest/download/Plover-x86_64.AppImage
+    chmod +x ~/Applications/plover.AppImage
+
+    echo "Creating desktop entry for Plover..."
+    mkdir -p ~/.local/share/applications
+    cat > ~/.local/share/applications/plover.desktop <<EOL
+[Desktop Entry]
+Name=Plover
+Exec=$HOME/Applications/plover.AppImage
+Icon=plover
+Type=Application
+Categories=Utility;
+Comment=Open Steno Project Plover
+Terminal=false
+EOL
+
+    echo "Attempting to extract icon from AppImage..."
+    # Extract icon if possible
+    tmpdir=$(mktemp -d)
+    ~/Applications/plover.AppImage --appimage-extract > /dev/null 2>&1
+    if [ -f squashfs-root/usr/share/icons/hicolor/256x256/apps/plover.png ]; then
+        cp squashfs-root/usr/share/icons/hicolor/256x256/apps/plover.png ~/.local/share/icons/plover.png
+        sed -i "s|Icon=plover|Icon=$HOME/.local/share/icons/plover.png|" ~/.local/share/applications/plover.desktop
+    fi
+    rm -rf squashfs-root "$tmpdir"
+
+    update-desktop-database ~/.local/share/applications
+    echo "Plover AppImage installed and integrated."
 else
     echo "Not installing plover."
 fi
