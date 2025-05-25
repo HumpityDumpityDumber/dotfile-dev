@@ -2,21 +2,17 @@
 
 # PokeTop Hyprland Dotfiles
 
+Minimal dotfiles
+
 These dotfiles include:
-- the poketop desktop shell and themer
-- hyprland config with utility scripts
+- hyprland
+- hyprlock and hypridle
+- sddm
+- grub
+- plymouth
 - zshrc
-- gtk theme
-- kitty theme
+- kitty
 
-Apps use gruvbox themes, the desktop is pokemon themed, and hyprland is nicely integrated with the ags shell.
+These dotfiles are included in the poketop-installer. 
 
-zshrc shows current pokemon along with having nice autofill features.
-
-install script also has the option to also install all of my prefered applications in addition to the packages required by the dotfiles.
-
-by default the dependencies are:
-- wtype
-- qalculate
-- pavucontrol
-- swww
+These are not really complete dotfiles and just include some configs to integrate some apps with poketop and inset.
